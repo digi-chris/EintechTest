@@ -32,6 +32,8 @@ namespace EintechTest
                     logger.LogError(ex, "An error occurred during database initialization.");
                 }
             }
+
+            host.Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
