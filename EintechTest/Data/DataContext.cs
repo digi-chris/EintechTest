@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EintechTest.Models;
 using Microsoft.EntityFrameworkCore;
+using EintechTest.Models;
+using EFCore.ModelBuilderExtensions.Extensions;
 
 namespace EintechTest.Data
 {
@@ -13,5 +14,10 @@ namespace EintechTest.Data
 
         public DbSet<Person> People { get; set; }
         public DbSet<Group> Groups { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.SetSQLDefaultValues();
+        }
     }
 }
