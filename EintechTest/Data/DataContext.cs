@@ -10,14 +10,25 @@ namespace EintechTest.Data
 {
     public class DataContext : DbContext
     {
-        public DataContext(DbContextOptions<DataContext> options) : base(options) { }
+        bool _isSqlLte;
+
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
+        {
+            if (options.FindExtension<Microsoft.EntityFrameworkCore.Sqlite.Infrastructure.Internal.SqliteOptionsExtension>() != null)
+            {
+                _isSqlLte = true;
+            }
+        }
 
         public DbSet<Person> People { get; set; }
         public DbSet<Group> Groups { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.SetSQLDefaultValues();
+            if (!_isSqlLte)
+            {
+                modelBuilder.SetSQLDefaultValues();
+            }
         }
     }
 }
