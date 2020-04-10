@@ -26,6 +26,20 @@ namespace EintechTest.Controllers
             return View(await dataContext.ToListAsync());
         }
 
+        public async Task<IActionResult> Find(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                return NotFound();
+            }
+
+            List<Person> people = await (from p in _context.People
+                                   where EF.Functions.Like(p.FirstName + p.MiddleName + p.LastName, "%" + name + "%")
+                                   select p).ToListAsync<Person>();
+
+            return Json(people);
+        }
+
         // GET: People/Details/5
         public async Task<IActionResult> Details(int? id)
         {
