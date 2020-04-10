@@ -35,7 +35,7 @@ namespace EintechTest.Controllers
 
             List<Person> people = await (from p in _context.People
                                    where EF.Functions.Like(p.FirstName + p.MiddleName + p.LastName, "%" + name + "%")
-                                   select p).ToListAsync<Person>();
+                                   select p).Include(p => p.Group).ToListAsync<Person>();
 
             return View(people);
         }
