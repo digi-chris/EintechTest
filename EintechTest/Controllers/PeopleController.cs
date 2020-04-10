@@ -37,7 +37,7 @@ namespace EintechTest.Controllers
                                    where EF.Functions.Like(p.FirstName + p.MiddleName + p.LastName, "%" + name + "%")
                                    select p).ToListAsync<Person>();
 
-            return Json(people);
+            return View(people);
         }
 
         // GET: People/Details/5
