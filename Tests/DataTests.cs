@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Tests
 {
-    public class UnitTest1
+    public class DataTests
     {
         [Fact]
         public async void AddGroup()
