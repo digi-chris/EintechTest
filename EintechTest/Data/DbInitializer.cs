@@ -21,11 +21,14 @@ namespace EintechTest.Data
 
             if (!context.People.Any())
             {
-                context.People.Add(new Person { FirstName = "David", MiddleName = "Dave", LastName = "Lister" });
-                context.People.Add(new Person { FirstName = "Arnold", MiddleName = "Judas", LastName = "Rimmer" });
-                context.People.Add(new Person { FirstName = "Arthur", MiddleName = "Philip", LastName = "Dent" });
-                context.People.Add(new Person { FirstName = "Ford", MiddleName = "", LastName = "Prefect" });
-                context.People.Add(new Person { FirstName = "Zaphod", MiddleName = "", LastName = "Beeblebrox" });
+                Group RedDwarf = context.Groups.Where(g => g.Name == "Red Dwarf").First<Group>();
+                Group HeartOfGold = context.Groups.Where(g => g.Name == "Heart of Gold").First<Group>();
+
+                context.People.Add(new Person { FirstName = "David", MiddleName = "Dave", LastName = "Lister", GroupId = RedDwarf.Id });
+                context.People.Add(new Person { FirstName = "Arnold", MiddleName = "Judas", LastName = "Rimmer", GroupId = RedDwarf.Id });
+                context.People.Add(new Person { FirstName = "Arthur", MiddleName = "Philip", LastName = "Dent", GroupId = HeartOfGold.Id });
+                context.People.Add(new Person { FirstName = "Ford", MiddleName = "", LastName = "Prefect", GroupId = HeartOfGold.Id });
+                context.People.Add(new Person { FirstName = "Zaphod", MiddleName = "", LastName = "Beeblebrox", GroupId = HeartOfGold.Id });
                 context.SaveChanges();
             }
         }
