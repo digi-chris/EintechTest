@@ -62,7 +62,6 @@ namespace EintechTest.Controllers
         // GET: People/Create
         public IActionResult Create()
         {
-            //ViewData["GroupId"] = new SelectList(_context.Groups, "Id", "Id");
             ViewData["GroupName"] = new SelectList(_context.Groups, "Id", "Name");
             return View();
         }
@@ -80,7 +79,7 @@ namespace EintechTest.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            //ViewData["GroupId"] = new SelectList(_context.Groups, "Id", "Id", person.GroupId);
+
             ViewData["GroupName"] = new SelectList(_context.Groups, "Id", "Name", person.GroupId);
             return View(person);
         }
