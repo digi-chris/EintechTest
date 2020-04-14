@@ -33,8 +33,14 @@ namespace EintechTest.Controllers
                 return NotFound();
             }
 
+            // Handle edge case where user is searching for a name that contains a percentage sign
+            name = name.Replace("/", "//").Replace("%", "/%");
+
+            // Assume spaces should be treated like wildcards
+            name = name.Replace(" ", "%");
+
             List<Person> people = await (from p in _context.People
-                                   where EF.Functions.Like(p.FirstName + p.MiddleName + p.LastName, "%" + name + "%")
+                                   where EF.Functions.Like(p.FirstName + p.MiddleName + p.LastName, "%" + name + "%", "/")
                                    select p).Include(p => p.Group).ToListAsync<Person>();
 
             return View(people);
