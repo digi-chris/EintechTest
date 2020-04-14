@@ -91,12 +91,13 @@ namespace EintechTest.Controllers
                 return NotFound();
             }
 
-            var person = await _context.People.FindAsync(id);
+            var person = await _context.People.Include(p => p.Group).SingleOrDefaultAsync(p => p.Id == id);
             if (person == null)
             {
                 return NotFound();
             }
             ViewData["GroupId"] = new SelectList(_context.Groups, "Id", "Id", person.GroupId);
+            ViewData["GroupName"] = new SelectList(_context.Groups, "Id", "Name", person.GroupId);
             return View(person);
         }
 
